@@ -2,9 +2,23 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
 }
-
+h1 {
+  color: aliceblue;
+}
+.navbar {
+  justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 30px;
+}
+.header ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -18,6 +32,11 @@
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
+li {
+  text-decoration: none;
+  list-style: none;
+  font-size: 150%;
+}
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
