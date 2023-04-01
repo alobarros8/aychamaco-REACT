@@ -1,13 +1,15 @@
 import "./App.css";
 
 import Title from "./Title";
-import Header from "./Header";
+import Navbarjs from "./Header";
+import ItemlistContainer from "./ItemlistContainer";
 
 function App() {
   return (
     <div>
-      <Header />
+      <Navbarjs />
       <Title />
+      <ItemlistContainer />
     </div>
   );
 }
