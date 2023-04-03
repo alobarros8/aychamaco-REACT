@@ -1,4 +1,3 @@
-import "./App.css";
 import "./ItemlistContainer";
 const Item = (props) => {
   return (
@@ -10,6 +9,7 @@ const Item = (props) => {
         <p className="card-description">{props.descripcion}</p>
         <p className="precio">${props.precio}</p>
       </article>
+      <p className="gracias">{props.greeting}</p>
     </>
   );
 };

@@ -1,8 +1,7 @@
-h1 {
-  font-size: 200px;
+h2 {
   background-color: rgba(165, 42, 42, 0.589);
-  color: aliceblue;
-  margin-bottom: 30%;
+  font-size: 250%;
+  margin-bottom: 25%;
 }
 h3 {
   background-color: rgba(165, 42, 42, 0.589);
@@ -17,6 +16,6 @@ h3 {
   align-items: center;
 }
 .bg-burger {
-  background-image: url(./assets/tincho.jpg);
+  background-image: url(../assets/tincho.jpg);
   background-size: cover;
 }

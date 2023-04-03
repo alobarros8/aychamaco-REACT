@@ -3,22 +3,7 @@
   margin: 0 auto;
   padding: 2rem;
 }
-h1 {
-  color: aliceblue;
-}
-.navbar {
-  justify-content: space-between;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 30px;
-}
-.header ul {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-}
+
 .logo {
   height: 6em;
   padding: 1.5em;

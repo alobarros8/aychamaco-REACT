@@ -1,21 +1,19 @@
-import "./assets/logochamaco.png";
-
-function Header() {
+import "./navbarjs.css";
+import CartWidget from "./CartWidget";
+function Navbarjs() {
   return (
     <header className="header">
+      <h1>AyChamaco!</h1>
       <nav className="navbar">
-        <img src="assets/logochamaco" alt="" />
         <ul>
           <li>Incio</li>
           <li className="active_item">Hamburguesas</li>
           <li>Contacto</li>
           <li>Sobre nosotros</li>
         </ul>
-        <button>
-          <i class="bi bi-cart-plus"></i>
-        </button>
+        <CartWidget />
       </nav>
     </header>
   );
 }
-export default Header;
+export default Navbarjs;
