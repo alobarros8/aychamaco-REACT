@@ -1,0 +1,11 @@
+.cantidad {
+  display: flex;
+  flex-direction: row;
+}
+.cantidad p {
+  font-size: 120%;
+  padding: 20px;
+}
+.btn-cantidad {
+  pad: 5px;
+}

@@ -13,7 +13,6 @@ function ItemlistContainer() {
         descripcion={descripcionburger}
         precio={precioburger}
       />
-      <Item greeting={mensaje} />
     </div>
   );
 }

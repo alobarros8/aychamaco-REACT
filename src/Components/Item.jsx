@@ -1,4 +1,5 @@
 import "./ItemlistContainer";
+import Cantidad from "./Counter";
 const Item = (props) => {
   return (
     <>
@@ -8,8 +9,8 @@ const Item = (props) => {
 
         <p className="card-description">{props.descripcion}</p>
         <p className="precio">${props.precio}</p>
+        <Cantidad />
       </article>
-      <p className="gracias">{props.greeting}</p>
     </>
   );
 };
