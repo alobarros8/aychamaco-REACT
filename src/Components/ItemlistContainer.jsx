@@ -1,18 +1,37 @@
 import "./ItemlistContainer.css";
-import Item from "./Item";
+
+import { useState, useEffect } from "react";
+import { task } from "./Task";
 function ItemlistContainer() {
-  let nombreburger = "cheeseburger";
-  let descripcionburger = "Doble carne, Queso cheddar";
-  let precioburger = "1600";
-  let mensaje = "Gracias por elegirnos";
+  const [burgers, setBurgers] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    task()
+      .then((resultado) => {
+        setBurgers(resultado);
+      })
+      .catch((error) => console.log(error))
+      .finally(() => setIsLoading(false));
+  }, []);
   return (
     <div className="item-list-container">
-      <Item
-        nombre={nombreburger}
-        imagen=""
-        descripcion={descripcionburger}
-        precio={precioburger}
-      />
+      {" "}
+      {isLoading ? (
+        <h2>Cargando...</h2>
+      ) : (
+        burgers.map(({ id, name, description, price }) => (
+          <div key={id} className="card">
+            <div className="card-body">
+              <h6>Nombre: {name}</h6>
+              <label>Precio: {price}</label>
+            </div>
+            <div className="card-footer">
+              <button className="btn">Detalle</button>
+            </div>
+          </div>
+        ))
+      )}
     </div>
   );
 }
