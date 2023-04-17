@@ -2,6 +2,7 @@ let burgers = [
   {
     id: "1",
     name: "Cheeseburger",
+
     description: "Doble carne, Doble cheddar",
     price: 1500,
     stock: 999,
@@ -84,7 +85,7 @@ const task = () => {
   return new Promise((res, rej) => {
     setTimeout(() => {
       res(burgers);
-    }, 3000); // retraso de 3 segundos (3000 ms)
+    }, 1500); // retraso de 3 segundos (3000 ms)
   });
 };
 export default task;

@@ -1,35 +1,104 @@
-import React from "react";
-import Dropdown from "react-bootstrap/Dropdown";
+import React, { useState, useEffect } from "react"; // Importa useState de React
+import Offcanvas from "react-bootstrap/Offcanvas";
+import Button from "react-bootstrap/Button";
 
 function CartWidget({ cartItems }) {
-  // Calcular el total de los precios de los elementos en el carrito
   const totalPrice = cartItems.reduce((total, item) => total + item.price, 0);
 
-  return (
-    <Dropdown>
-      <Dropdown.Toggle variant="success" id="dropdown-basic">
-        <i className="bi  bi-cart-plus"></i>
-      </Dropdown.Toggle>
+  const [showCart, setShowCart] = useState(false);
+  const [quantity, setQuantity] = useState(1);
+  const [itemPrice, setItemPrice] = useState(totalPrice);
 
-      <Dropdown.Menu>
-        {cartItems.map(({ id, name, description, price }) => (
-          <Dropdown.Item key={id}>
-            <div>
+  const handleClose = () => setShowCart(false);
+
+  const handleIncrement = (itemId) => {
+    setQuantity((prevQuantity) => prevQuantity + 1);
+    const updatedCartItems = cartItems.map((item) => {
+      if (item.id === itemId) {
+        return {
+          ...item,
+          quantity: item.quantity + 1,
+          price: item.price * (item.quantity + 1),
+        };
+      } else {
+        return item;
+      }
+    });
+    setItemPrice(
+      updatedCartItems.reduce((total, item) => total + item.price, 0)
+    );
+  };
+
+  const handleDecrement = (itemId) => {
+    const currentItem = cartItems.find((item) => item.id === itemId);
+    if (currentItem.quantity > 1) {
+      setQuantity((prevQuantity) => prevQuantity - 1);
+      const updatedCartItems = cartItems.map((item) => {
+        if (item.id === itemId) {
+          return {
+            ...item,
+            quantity: item.quantity - 1,
+            price: item.price * (item.quantity - 1),
+          };
+        } else {
+          return item;
+        }
+      });
+      setItemPrice(
+        updatedCartItems.reduce((total, item) => total + item.price, 0)
+      );
+    }
+  };
+  return (
+    <>
+      <Button variant="dark" className="m-2" onClick={() => setShowCart(true)}>
+        <i className="bi  bi-cart-plus fs-2"></i>
+      </Button>
+
+      <Offcanvas show={showCart} onHide={handleClose}>
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title>Carrito</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+          {cartItems.map(({ id, name, description, price }) => (
+            <div key={id} className="border-bottom border-dark">
               <h6>{name}</h6>
               <p>{description}</p>
-              <label>${price}</label>
+              <div className="d-flex align-items-center justify-content-between">
+                <div>
+                  <label>Cantidad:</label>
+                  <Button
+                    variant="outline-secondary"
+                    size="sm"
+                    className="mx-2"
+                    onClick={handleDecrement}
+                  >
+                    -
+                  </Button>
+                  <span>{quantity}</span>
+                  <Button
+                    variant="outline-secondary"
+                    size="sm"
+                    className="mx-2"
+                    onClick={handleIncrement}
+                  >
+                    +
+                  </Button>
+                </div>
+                <label>${itemPrice}</label>
+              </div>
             </div>
-          </Dropdown.Item>
-        ))}
-        <Dropdown.Divider />
-        <Dropdown.Item>
-          <div className="border-bottom ">
+          ))}
+          <div className="border-bottom text-center">
             <h6>Total:</h6>
             <label>${totalPrice}</label>
           </div>
-        </Dropdown.Item>
-      </Dropdown.Menu>
-    </Dropdown>
+          <div className="d-flex justify-content-center">
+            <Button variant="success">Finalizar compra</Button>
+          </div>
+        </Offcanvas.Body>
+      </Offcanvas>
+    </>
   );
 }
 

@@ -6,7 +6,11 @@ const AddToCartButton = ({ burger, onAddToCart }) => {
     onAddToCart(burger);
   };
 
-  return <button onClick={handleClick}>Agregar al carrito</button>;
+  return (
+    <div>
+      <button onClick={handleClick}>Agregar al carrito</button>
+    </div>
+  );
 };
 
 export default AddToCartButton;

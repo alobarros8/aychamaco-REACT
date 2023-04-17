@@ -17,7 +17,7 @@ function Navbarjs({ cartItems }) {
           <Nav.Link href="#features">Burger shop</Nav.Link>
           <Nav.Link href="#pricing">Sobre Nosotros</Nav.Link>
         </Nav>{" "}
-      </Container>
+      </Container>{" "}
     </Navbar>
   );
 }

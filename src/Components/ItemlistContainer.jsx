@@ -24,7 +24,7 @@ function ItemlistContainer({ onAddToCart }) {
         <Spinner animation="border" />
       ) : (
         burgers.map(({ id, name, description, price }) => (
-          <div key={id} className="card">
+          <div key={id} className="card ">
             <div className="card-body">
               <h6>{name}</h6>
               <p>{description}</p>

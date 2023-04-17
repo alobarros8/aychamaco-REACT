@@ -17,4 +17,5 @@ h3 {
 .bg-burger {
   background-image: url(../assets/tincho.jpg);
   background-size: cover;
+  background-position: 30%;
 }

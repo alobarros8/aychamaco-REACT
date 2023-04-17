@@ -3,6 +3,7 @@ import Title from "./Components/Title";
 import Navbarjs from "./Components/Navbarjs";
 import ItemlistContainer from "./Components/ItemlistContainer";
 import React, { useState } from "react";
+import Formulario from "./Components/formulario/Formulario";
 
 function App() {
   const [cartItems, setCartItems] = useState([]);
@@ -14,6 +15,7 @@ function App() {
       <Navbarjs cartItems={cartItems} />
       <Title />
       <ItemlistContainer onAddToCart={handleAddToCart} />
+      <Formulario />
     </div>
   );
 }
