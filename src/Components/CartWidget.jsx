@@ -1,35 +1,43 @@
-import React, { useState, useEffect } from "react"; // Importa useState de React
-import Offcanvas from "react-bootstrap/Offcanvas";
-import Button from "react-bootstrap/Button";
+import React, { useState } from "react";
+import { Button, Modal, Table } from "react-bootstrap";
 
 function CartWidget({ cartItems }) {
-  const totalPrice = cartItems.reduce((total, item) => total + item.price, 0);
-
-  const [showCart, setShowCart] = useState(false);
-  const [quantity, setQuantity] = useState(1);
-  const [itemPrice, setItemPrice] = useState(totalPrice);
+  const totalQuantity = cartItems.reduce(
+    (total, item) => total + item.quantity,
+    0
+  ); // Suma las cantidades de todos los objetos de burger en cartItems
+  const totalPrice = cartItems.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  ); // Calcula el precio total sumando las propiedades de precio y cantidad de cada objeto de bulet
+  let [showCart, setShowCart] = useState(false);
+  let [quantity, setQuantity] = useState(1);
+  let [itemPrice, setItemPrice] = useState(totalPrice);
 
   const handleClose = () => setShowCart(false);
 
-  const handleIncrement = (itemId) => {
+  let handleIncrement = (itemId) => {
     setQuantity((prevQuantity) => prevQuantity + 1);
     const updatedCartItems = cartItems.map((item) => {
       if (item.id === itemId) {
         return {
           ...item,
           quantity: item.quantity + 1,
-          price: item.price * (item.quantity + 1),
         };
       } else {
         return item;
       }
     });
+    setCartItems(updatedCartItems);
     setItemPrice(
-      updatedCartItems.reduce((total, item) => total + item.price, 0)
+      updatedCartItems.reduce(
+        (total, item) => total + item.price * item.quantity,
+        0
+      )
     );
   };
 
-  const handleDecrement = (itemId) => {
+  let handleDecrement = (itemId) => {
     const currentItem = cartItems.find((item) => item.id === itemId);
     if (currentItem.quantity > 1) {
       setQuantity((prevQuantity) => prevQuantity - 1);
@@ -38,66 +46,76 @@ function CartWidget({ cartItems }) {
           return {
             ...item,
             quantity: item.quantity - 1,
-            price: item.price * (item.quantity - 1),
           };
         } else {
           return item;
         }
       });
+      setCartItems(updatedCartItems);
       setItemPrice(
-        updatedCartItems.reduce((total, item) => total + item.price, 0)
+        updatedCartItems.reduce(
+          (total, item) => total + item.price * item.quantity,
+          0
+        )
       );
     }
   };
+
   return (
     <>
-      <Button variant="dark" className="m-2" onClick={() => setShowCart(true)}>
-        <i className="bi  bi-cart-plus fs-2"></i>
+      <Button variant="dark" onClick={() => setShowCart(true)}>
+        <i className="bi bi-cart-fill"></i>
+        <span className="badge bg-danger">{totalQuantity}</span>
       </Button>
 
-      <Offcanvas show={showCart} onHide={handleClose}>
-        <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Carrito</Offcanvas.Title>
-        </Offcanvas.Header>
-        <Offcanvas.Body>
-          {cartItems.map(({ id, name, description, price }) => (
-            <div key={id} className="border-bottom border-dark">
-              <h6>{name}</h6>
-              <p>{description}</p>
-              <div className="d-flex align-items-center justify-content-between">
-                <div>
-                  <label>Cantidad:</label>
-                  <Button
-                    variant="outline-secondary"
-                    size="sm"
-                    className="mx-2"
-                    onClick={handleDecrement}
-                  >
-                    -
-                  </Button>
-                  <span>{quantity}</span>
-                  <Button
-                    variant="outline-secondary"
-                    size="sm"
-                    className="mx-2"
-                    onClick={handleIncrement}
-                  >
-                    +
-                  </Button>
-                </div>
-                <label>${itemPrice}</label>
-              </div>
-            </div>
-          ))}
-          <div className="border-bottom text-center">
-            <h6>Total:</h6>
-            <label>${totalPrice}</label>
-          </div>
-          <div className="d-flex justify-content-center">
-            <Button variant="success">Finalizar compra</Button>
-          </div>
-        </Offcanvas.Body>
-      </Offcanvas>
+      <Modal show={showCart} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Shopping Cart</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>Burger</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {cartItems.map((item) => (
+                <tr key={item.id}>
+                  <td>{item.name}</td>
+                  <td>
+                    <Button
+                      variant="outline-secondary"
+                      size="sm"
+                      onClick={() => handleDecrement(item.id)}
+                    >
+                      -
+                    </Button>{" "}
+                    {item.quantity}{" "}
+                    <Button
+                      variant="outline-secondary"
+                      size="sm"
+                      onClick={() => handleIncrement(item.id)}
+                    >
+                      +
+                    </Button>
+                  </td>
+                  <td>{item.price} </td>
+                  <td>{item.price * item.quantity} $</td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </Modal.Body>
+        <Modal.Footer>
+          <p>
+            Total: <strong>{itemPrice} $</strong>
+          </p>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }

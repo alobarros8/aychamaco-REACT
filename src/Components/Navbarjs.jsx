@@ -3,6 +3,8 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import "./navbarjs.css";
 import CartWidget from "./CartWidget";
+import React from "react";
+import { Link } from "react-router-dom";
 
 function Navbarjs({ cartItems }) {
   return (
@@ -13,9 +15,14 @@ function Navbarjs({ cartItems }) {
           AyChamaco
         </Navbar.Brand>
         <Nav className="me-auto ">
-          <Nav.Link href="#home">Incio</Nav.Link>
-          <Nav.Link href="#features">Burger shop</Nav.Link>
-          <Nav.Link href="#pricing">Sobre Nosotros</Nav.Link>
+          <Nav.Link href="#home"> Incio</Nav.Link>
+          <Nav.Link href="#features">
+            <Link to={"/BurgerShop"}>Burger shop</Link>
+          </Nav.Link>
+          <Nav.Link href="#pricing">
+            {" "}
+            <Link to={"/Formulario"}>Contacto</Link>{" "}
+          </Nav.Link>
         </Nav>{" "}
       </Container>{" "}
     </Navbar>
